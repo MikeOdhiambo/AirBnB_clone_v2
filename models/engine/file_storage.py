@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """This is the file storage class for AirBnB"""
 import json
+import datetime
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -8,7 +9,6 @@ from models.city import City
 from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
-import datetime
 
 
 class FileStorage:
@@ -40,10 +40,6 @@ class FileStorage:
             key = "{}.{}".format(type(obj).__name__, obj.id)
             self.__objects[key] = obj
 
-    def close(self):
-        """ deserializes JSON file to objects """
-        return self.reload()
-
     def save(self):
         """serialize the file path to JSON file path
         """
@@ -65,11 +61,17 @@ class FileStorage:
             pass
 
     def delete(self, obj=None):
-        """deletes an object from __objects if obj exists
+        """Deletes obj if it's inside the attribute __objects
         """
-        if obj in self.__objects.values():
+        if obj:
             key = "{}.{}".format(type(obj).__name__, obj.id)
-            del(self.__objects[key])
+            if (key, obj) in self.__objects.items():
+                self.__objects.pop(key, None)
+        self.save()
+
+    def close(self):
+        """Deserializes the JSON file to objects"""
+        self.reload()
 
     def classes(self):
         """Returns a dictionary of valid classes and their references."""
