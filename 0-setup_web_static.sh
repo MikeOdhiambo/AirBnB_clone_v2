@@ -5,7 +5,7 @@ apt-get -y update
 apt-get -y install nginx
 ufw allow 'Nginx HTTP'
 mkdir -p /data/web_static/shared/ /data/web_static/releases/test/
-chown -hR "$USER":"$USER" /data
+chown -hR ubuntu:ubuntu /data
 echo "<html>
   <head>
   </head>
