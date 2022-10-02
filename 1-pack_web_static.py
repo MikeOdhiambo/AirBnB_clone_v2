@@ -12,5 +12,5 @@ def do_pack():
         return local("ls -t versions/ | head -n1")
 
 if __name__ == "__main__":
-    from fabric.api import *
+    from fabric.operations import local
     do_pack()
