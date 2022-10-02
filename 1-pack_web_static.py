@@ -10,7 +10,3 @@ def do_pack():
         return None
     else:
         return local("ls -t versions/ | head -n1")
-
-if __name__ == "__main__":
-    from fabric.operations import local
-    do_pack()
