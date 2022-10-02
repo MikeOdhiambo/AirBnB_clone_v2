@@ -9,10 +9,10 @@ def do_pack():
     """
 
     local("mkdir -p versions/")
-
-    check_cmd = local("tar -czf versions/web_static$(date +%Y%m%d%H%M%S).\
-            tgz web_static/")
-    if check_cmd.failed:
+    cmd = local("""
+    tar -czf versions/web_static$(date +%Y%m%d%H%M%S).tgz web_static/
+    """)
+    if cmd.failed:
         return None
     else:
         return local("ls -t versions/ | head -n1")
